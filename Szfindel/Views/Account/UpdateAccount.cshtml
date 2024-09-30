@@ -1,0 +1,77 @@
+﻿@model Szfindel.Models.AccountUser
+
+@{
+    ViewData["Title"] = "UpdateInfo";
+    
+}
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+@using (Html.BeginForm("UpdateAccount", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.AccountUserId)
+    @Html.HiddenFor(model => model.Image)
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name)
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Surname)
+        @Html.TextBoxFor(model => model.Surname, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Surname)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Age)
+        @Html.TextBoxFor(model => model.Age, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Age)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.City)
+        @Html.TextBoxFor(model => model.City, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.City)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Height)
+        @Html.TextBoxFor(model => model.Height, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Height)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Image)
+        <input type="file" id="Image" name="file" class="form-control-file" onchange="loadFile(event)" />
+        @Html.ValidationMessageFor(model => model.Image)
+    </div>
+
+    <div class="form-group">
+        <img id="imagePreview" src="#" alt="Podgląd obrazka" style="max-width: 200px; max-height: 200px; display: none;" />
+    </div>
+    <div class="form-group">
+        <!-- <form id="AddHobbyToAccount" asp-controller="UserHobby" asp-action="Add_Delete_Hobbies" method="post">
+
+            cos takiego zeby dodawac hobby albo zrobic osobny widok do tego
+            -->
+
+        <a href="@Url.Action("AllHobbies", "Hobby")" class="btn btn-primary">Wybierz Hobby</a>
+       
+    </div>
+
+    <button type="submit" class="btn btn-success">Przejdz dalej</button>
+}
+
+<script>
+    var loadFile = function (event) {
+        var image = document.getElementById('imagePreview');
+        image.src = URL.createObjectURL(event.target.files[0]);
+        image.style.display = 'block';
+    };
+</script>
+
+

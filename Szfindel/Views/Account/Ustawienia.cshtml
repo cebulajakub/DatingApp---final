@@ -1,0 +1,33 @@
+﻿@model Szfindel.Models.AccountUser
+@{
+    ViewData["Title"] = "Usuń konto";
+}
+
+<h2>Usuń konto</h2>
+
+<p>Czy na pewno chcesz usunąć swoje konto?</p>
+
+<form id="deleteForm">
+    <button type="button" class="btn btn-danger" onclick="deleteAccount()">Usuń konto</button>
+    <a href="@Url.Action("Index", "Home")" class="btn btn-secondary">Anuluj</a>
+</form>
+
+<script>
+    function deleteAccount() {
+        if (confirm("Czy na pewno chcesz usunąć swoje konto?")) {
+            fetch('@Url.Action("DeleteAccount", "Account")', {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Nie udało się usunąć konta.');
+                    }
+                    window.location.href = '@Url.Action("Index", "Home")';
+                })
+                .catch(error => {
+                    console.error('Błąd:', error);
+                    alert('Wystąpił błąd podczas usuwania konta.');
+                });
+        }
+    }
+</script>

@@ -1,0 +1,15 @@
+﻿.cold {
+    color: blue;
+    background-color: lightblue;
+}
+
+.medium {
+    color: green;
+    background-color: lightgreen;
+}
+
+
+.warm {
+    color: red;
+    background-color: lightcoral;
+}

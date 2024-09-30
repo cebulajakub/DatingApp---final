@@ -1,0 +1,83 @@
+﻿@model Szfindel.Models.AccountUser
+@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Profil użytkownika";
+    var message = ViewBag.Message as Szfindel.Models.Message;
+    var hobby = ViewBag.USRHOBBY;
+    var match = ViewBag.Match;
+}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="~/js/sendMessageValidation.js"></script>
+<h1>Profil użytkownika</h1>
+
+<div class="user-profile">
+    <div class="user-details">
+        <h2>Informacje o użytkowniku</h2>
+        <hr />
+        <div class="form-group">
+            <img src="@Model.Image" />
+        </div>
+        <div class="form-group">
+            <label for="name">Imię:</label>
+            <span id="name">@Model.Name</span>
+        </div>
+        <div class="form-group">
+            <label for="surname">Nazwisko:</label>
+            <span id="surname">@Model.Surname</span>
+        </div>
+        <div class="form-group">
+            <label for="age">Wiek:</label>
+            <span id="age">@Model.Age</span>
+        </div>
+        <div class="form-group">
+            <label for="city">Miasto:</label>
+            <span id="city">@Model.City</span>
+        </div>
+        <div class="form-group">
+            <label for="height">Wzrost:</label>
+            <span id="height">@Model.Height</span>
+        </div>
+        <div class="form-group">
+            <label for="Hobby">Hobby:</label>
+            <br>
+          @foreach (var acchobby in hobby)
+        {
+
+                <span id="Hobby">@acchobby.HobbyName</span>
+
+                <br>
+            
+        }
+        </div>
+
+        
+    </div>
+
+    <hr />
+    @if (match)
+    {
+        <form id="sendMessageForm" asp-controller="Message" asp-action="SendMessage" method="post">
+            <input type="hidden" name="receiverId" value="@Model.AccountUserId" />
+            <div>
+                <label for="text">Treść wiadomości:</label>
+                <textarea id="text" name="text" rows="4" cols="50"></textarea>
+                @if (message != null)
+                {
+                    <span class="text-danger">@message.Text</span>
+                }
+            </div>
+            <div>
+                <button type="submit">Wyślij wiadomość</button>
+            </div>
+        </form>
+    
+
+    <form id="startChatForm" asp-controller="Message" asp-action="SendMessage" method="get">
+        <input type="hidden" name="receiverId" value="@Model.AccountUserId" />
+        <button type="submit">Pokaż Chat</button>
+    </form>
+    }
+</div>
+
+<link rel="stylesheet" href="~/css/profil.css">

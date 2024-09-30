@@ -1,0 +1,39 @@
+﻿body {
+    background-color: #f0f0f0;
+    .all-users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.hobby-tile {
+    flex: 0 0 calc(25% - 20px);
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #ffffff;
+}
+
+.hobby-details {
+    margin-top: 10px;
+
+}
+
+.hobby-tile:hover {
+    background-color: #f00f;
+}
+
+    .hobby-details p {
+        margin: 5px 0;
+
+    }
+
+   
+
+@media screen and (max-width: 768px) {
+    .hobby-tile {
+        flex: 0 0 calc(50% - 20px);
+    }
+}

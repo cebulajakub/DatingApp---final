@@ -1,0 +1,28 @@
+﻿@model Szfindel.Models.Message
+
+@using Microsoft.AspNetCore.Http 
+
+@{
+    var currentUserId = Context.User.Identity.Name; // Uzyskaj dostęp do HttpContext i pobierz aktualnego użytkownika
+    var send = ViewBag.account;
+}
+
+<div id="chat-section">
+    <h2>Czat</h2>
+    <div id="chat-box">
+        @if (@ViewBag.Messages != null)
+        {
+
+            foreach (var message in @ViewBag.Messages)
+            {
+                <div>
+                    <strong>@(message.SenderId == send ? "Nadawca" : "Odbiorca"):</strong> @message.Text
+                </div>
+
+
+            }
+
+        }
+   </div>
+</div>
+<link rel="stylesheet" href="~/css/profil.css">

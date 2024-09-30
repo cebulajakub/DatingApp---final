@@ -1,0 +1,30 @@
+﻿@model Szfindel.Models.WeatherApi
+@{
+    ViewData["Title"] = "Index";
+
+    double temperatureCelsius = Model.main.temp;
+    string temperatureClass = "";
+    string temperatureEmoji = "";
+
+    if (temperatureCelsius < 10)
+    {
+        temperatureClass = "cold";
+        temperatureEmoji = "❄️";
+    }
+    else if (temperatureCelsius >= 10 && temperatureCelsius < 20)
+    {
+        temperatureClass = "medium";
+        temperatureEmoji = "🌤️";
+    }
+    else
+    {
+        temperatureClass = "warm";
+        temperatureEmoji = "☀️";
+    }
+}
+<body class="@temperatureClass">
+    <h1>Pogoda w @ViewBag.CityName</h1>
+    <p>Temperatura: @Model.main.temp °C @temperatureEmoji</p>
+    <p>Ciśnienie: @Model.main.pressure hPa</p>
+</body>
+<link rel="stylesheet" href="~/css/pogoda.css">

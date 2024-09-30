@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Szfindel.Models.Hobby>
+
+@{
+    ViewData["Title"] = "Lista Hobby";
+    int ID = ViewBag.accid;
+
+}
+
+<h1>Lista Hobby</h1>
+
+<div class="all-users">
+    @foreach (var Hobby in Model)
+    {
+        bool isHobby = true;
+
+        
+            <div class="hobby-tile">
+               
+                <div class="hobby-details">
+                <p> @Hobby.HobbyName</p>
+
+                @foreach(var Hobbyuser in ViewBag.USRHOB)
+                {
+                    if( Hobbyuser == Hobby)
+                    {
+                        <form asp-controller="Hobby" asp-action="Removehobby" method="post">
+                            <input type="hidden" name="hobbyId" value="@Hobby.HobbyId" />
+                            <button type="submit">Usun z listy hobby</button>
+                        </form>
+                        isHobby = false;
+                        break;
+                    }
+                   
+               
+                }
+                @if(isHobby){
+                <form asp-controller="Hobby" asp-action="Addhobby" method="post">
+                    <input type="hidden" name="hobbyId" value="@Hobby.HobbyId" />
+                    <button type="submit">dodaj do listy hobby</button>
+                </form>
+              }
+
+                
+                </div>
+          
+            </div>
+        
+    }
+</div>
+
+
+
+<link rel="stylesheet" href="~/css/hobby.css" />

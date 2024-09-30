@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Szfindel.Models.AccountUser>
+
+@{
+    ViewData["Title"] = "Lista użytkowników";
+    int ID = ViewBag.Uid;
+    ICollection<int> matches = ViewBag.Matches;
+}
+
+<h1>Lista użytkowników</h1>
+
+
+<form action="@Url.Action("FilteredUsers", "Account")" method="get">
+    <label for="minAge">Minimalny wiek:</label>
+    <input type="number" name="minAge" id="minAge" min="18">
+
+    <label for="maxAge">Maksymalny wiek:</label>+
+    <input type="number" name="maxAge" id="maxAge">
+
+    <button type="submit">Filtruj</button>
+</form>
+
+<div class="all-users">
+    
+    @foreach (var accountUser in Model)
+    {
+        bool isMatch = true;
+        if (accountUser.AccountUserId != ID && accountUser.UserId != null )
+        {
+            @foreach(var match in matches)
+            {
+                if (match == accountUser.AccountUserId)
+                {
+                        <div class="user-tile">
+                            <img src="@accountUser.Image" />
+                    <div class="user-details">
+                        <p>Imię: @accountUser.Name</p>
+                        <p>Wiek: @accountUser.Age</p>
+                    </div>
+                    <a href="@Url.Action("AccountProfil", "Account", new { id = accountUser.AccountUserId })" class="btn btn-primary">Zobacz profil</a>
+                    <form id="startChatForm" asp-controller="Match" asp-action="DeleteMatch" method="post">
+                        <input type="hidden" name="MatchedUserId" value="@accountUser.AccountUserId" />
+                        <button type="submit">Unlike</button>
+                    </form>
+
+                    </div>
+                    isMatch = false;
+                    break;
+                }
+
+            }
+            @if (isMatch)
+            {
+                <div class="user-tile">
+                    <img src="@accountUser.Image" />
+                <div class="user-details">
+                    <p>Imię: @accountUser.Name</p>
+                    <p>Wiek: @accountUser.Age</p>
+                </div>
+                <a href="@Url.Action("AccountProfil", "Account", new { id = accountUser.AccountUserId })" class="btn btn-primary">Zobacz profil</a>
+                <form id="startChatForm" asp-controller="Match" asp-action="Like" method="post">
+                    <input type="hidden" name="MatchedUserId" value="@accountUser.AccountUserId" />
+                    <button type="submit">Like</button>
+                </form>
+
+            </div>
+            }
+        }
+    }
+</div>
+
+@if (!Model.Any())
+{
+    <p>Brak użytkowników.</p>
+}
+
+<link rel="stylesheet" href="~/css/uzytkownicy.css" />
+

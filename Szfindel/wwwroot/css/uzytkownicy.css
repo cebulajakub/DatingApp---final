@@ -1,0 +1,38 @@
+﻿body {
+    background-color: #f0f0f0; 
+
+.all-users {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.user-tile {
+    flex: 0 0 calc(25% - 20px);
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #ffffff; 
+}
+
+    .user-tile img {
+        border-radius: 50%;
+        width: 100px;
+        height: 100px;
+    }
+
+.user-details {
+    margin-top: 10px;
+}
+
+    .user-details p {
+        margin: 5px 0;
+    }
+
+@media screen and (max-width: 768px) {
+    .user-tile {
+        flex: 0 0 calc(50% - 20px);
+    }
+}
